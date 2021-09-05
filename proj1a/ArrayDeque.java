@@ -3,19 +3,16 @@ public class ArrayDeque<T> {
     private T[] items;
     private int nextFirst;
     private int nextLast;
-    private int size =0;
+    private int size = 0;
 
-    public  ArrayDeque(){
+    public  ArrayDeque() {
         items  = (T[]) new Object[8];
-        nextFirst=0;
-        nextLast=1;
+        nextFirst = 0;
+        nextLast = 1;
 
     }
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return size == 0;
-    }
-    public boolean isFull(){
-        return size()== items.length;
     }
 
     public int size(){
@@ -23,17 +20,17 @@ public class ArrayDeque<T> {
 
     }
 
-    private int addOnePos(int a){
+    private int addOnePos(int a) {
         return (a + 1 ) % items.length;
     }
-    private int subOnePos(int a){
+    private int subOnePos(int a) {
         return (a-1+items.length) % items.length;
     }
 
-    private void resize(int length){
+    private void resize(int length) {
         T[] a = (T[]) new Object[length];
 
-        for(int i=0; i<size; i++){
+        for(int i=0; i<size; i++) {
             a[i] = items[addOnePos(nextFirst)];
             nextFirst=addOnePos(nextFirst);
         }
@@ -42,8 +39,8 @@ public class ArrayDeque<T> {
         nextLast = size;
     }
 
-    public void addFirst(T item){
-        if (isFull()){
+    public void addFirst(T item) {
+        if (size== items.length){
             resize(items.length*2);
         }
         items[nextFirst]= item;
@@ -51,8 +48,8 @@ public class ArrayDeque<T> {
         size++;
     }
 
-    public void addLast(T item){
-        if (isFull()){
+    public void addLast(T item) {
+        if (size== items.length){
             resize(items.length*2);
         }
         items[nextLast]= item;
@@ -61,7 +58,7 @@ public class ArrayDeque<T> {
     }
 
 
-    public void printDeque(){
+    public void printDeque() {
         int i = addOnePos(nextFirst);
         for (int j=0; j<size; j++){
             System.out.println(items[i]);
@@ -69,13 +66,13 @@ public class ArrayDeque<T> {
         }
     }
 
-    public T removeFirst(){
+    public T removeFirst() {
         if (isEmpty()){
             return null;
         }
         T a = items[addOnePos(nextFirst)];
 
-        nextFirst= addOnePos(nextFirst);
+        nextFirst = addOnePos(nextFirst);
         size --;
         if (items.length >= 16 && size < (items.length / 4)) {
             resize(items.length / 2);
@@ -88,7 +85,7 @@ public class ArrayDeque<T> {
         if (isEmpty()){
             return null;
         }
-        T a =items[subOnePos(nextLast)];
+        T a = items[subOnePos(nextLast)];
 
         nextLast= subOnePos(nextLast);
         size--;
